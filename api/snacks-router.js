@@ -10,3 +10,18 @@ router.get("/", async (req, res, next) => {
     }
 });
 
+router.delete("/:id", async (req, res, next) => {
+    const { id } = req.params;
+  
+    try {
+      const snackToDelete = await Snack.getById(id);
+      snackToDelete
+        ? await Snack.remove(id)
+        : res.status(500).json({ message: "run that back, it didn't work" });
+      return res.json(snackToDelete);
+    } catch (err) {
+      next(err);
+    }
+  });
+
+module.exports = router;
