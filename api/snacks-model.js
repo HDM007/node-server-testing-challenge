@@ -4,21 +4,24 @@ function getAll() {
     return db("snacks");
 }
 
-function getById() {
-
+function getById(id) {
+    return db("snacks").where("snack_id", id).first();
 }
 
 
-function create() {
-
+async function create(snack) {
+    const [id] = await db("snacks").insert(snack);
+    return getById(id);
 }
 
 function update() {
+    const updated = "update called";
+    return updated;
 
 }
 
-function remove() {
-
+function remove(id) {
+    return db("snacks").where("snack_id", id).delete();
 }
 
 module.exports = {
